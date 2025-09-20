@@ -1,0 +1,511 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+:root{
+  --tcolor: burlywood;
+  --pcolor: darkmagenta;
+  --scolor: crimson;
+}
+
+.container{
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar{
+  width: 100%;
+  height: 65px;
+  border-radius: 14px;
+  padding: 0px 8px;
+  box-shadow: 0 0 20px black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  background-color: var(--pcolor);
+  position: fixed;
+  top: 5px;
+  z-index: 999;
+}
+
+.navbar h1{
+  text-shadow: 2px 2px var(--tcolor);
+}
+
+.navbar div{
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar div a{
+  color: var(--tcolor);
+  font-size: 18px;
+  text-decoration: none;
+  padding: 6px;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.5s;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.navbar div a::after{
+  content: "";
+  position: absolute;
+  transform-origin: left;
+  top: 0px;
+  left: 0px;
+  width: 0;
+  height: 0;
+  transform-origin: center;
+  border-radius: 3px;
+  background-color: black;
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.navbar div a:hover::after{
+  width: 100%;
+  height: 100%;
+}
+
+.navbar div a.active{
+  background-color: var(--tcolor);
+  color: var(--scolor);
+}
+
+.iconContainer{
+  display: none;
+}
+
+@media only screen and (max-width: 840px){
+  .iconContainer{
+    display: block;
+    transition: all 0.5s;
+  }
+
+  .navbar div a{
+    color: var(--scolor);
+    font-weight: 900;
+    text-shadow: 1.2px 1.2px var(--tcolor);
+  }
+  
+  .down{
+    width: 98% !important;
+    min-height: 480px;
+    box-shadow: 0 0 20px black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top:70px;
+    transform-origin: center 50%;
+    transform: scale(1);
+    transition: all 0.5s;
+  }
+
+  .center{
+    width: 98% !important;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 70px;
+    transform-origin: center 50%;
+    transform: scale(0);
+    transition: all 0.5s;
+  }
+}
+
+.register, .login{
+  width: 100%;
+  min-height: 100vh;
+  color: var(--tcolor);
+  padding: 10px;
+  background: linear-gradient(62deg, var(--scolor) 40%, var(--pcolor) 60%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register form, .login form{
+  width: 90%;
+  max-width: 380px;
+  min-height: 420px;
+  padding: 8px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login form{
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+}
+
+.login form h3{
+  color: black;
+}
+
+.login form h3 a{
+  color: var(--tcolor);
+  text-decoration: none;
+}
+
+.register form div input, .register form select{
+  width: 100%;
+  padding: 9px 6px;
+  color: var(--tcolor);
+  border-color: transparent;
+  border-bottom: 2px solid #000000a6;
+  background-color: transparent;
+  position: relative;
+}
+
+.register form select option{
+  color: black
+}
+
+.login form input{
+  width: 100%;
+  padding: 9px 6px;
+  border-radius: 6px;
+  background-color: transparent;
+}
+
+.register form div input:focus, .login form input:focus, .register form select:focus{
+  outline: none;
+  border-color: transparent;
+  border-bottom: 2px solid #000000a6;
+}
+
+.register form div label{
+  color: black;
+  position: absolute;
+  top: 10px;
+  left: 2px;
+  pointer-events: none;
+}
+
+.register form div input:focus ~ label,
+.register form div input:hover ~ label,
+.register form div input:not(:placeholder-shown) ~ label{
+  transition: all 0.5s;
+  transform-origin: top;
+  transform: scale(0.9);
+  top: -10px;
+}
+
+.register form div, .login form div{
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.register form div input, .login form div input{
+  position: relative;
+}
+
+.eye, .icon{
+  position: absolute;
+  top: 5.5px;
+  right: 1.5px;
+  font-size: 25px;
+  background: var(--pcolor);
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.register form button, .login form button{
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.register form button:active, .login form button:active{
+  transform: scale(0.9);
+}
+
+.create, .upgradeForm{
+  margin-top: 68px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.create form, .upgradeForm form {
+  width: 100%;
+  max-width: 650px;
+  min-height: 450px;
+  padding: 6px 0px;
+  border-radius: 10px;
+  background-color: transparent;
+  box-shadow: 0px 0px 10px 1px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+}
+
+.inputContainer{
+  width: 100%;
+  min-height: 80%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.inputContainer input, textarea{
+  flex-grow: 1;
+  flex-basis: 231px;
+  height: 40px;
+  border-radius: 10px;
+  padding: 6px;
+}
+
+.inputContainer input:-webkit-autofill{
+  background-color: white !important;
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  color: var(--Scolor);
+}
+
+.inputContainer textarea{
+  min-height: 150px;
+}
+
+.create form button, .upgradeForm form button{
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.5s ease-in;
+}
+
+.create form button:hover, .upgradeForm form button:hover{
+  box-shadow: inset 0 -100px 0 0 var(--scolor);
+}
+
+.create form button:active, .upgradeForm form button:active{
+  background-color: var(--scolor);
+  transform: scale(0.9px);
+}
+
+.mapper{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.handleView{
+  margin-top: 70px;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.viewDetails{
+  margin: auto;
+  width:95%;
+  min-height: 450px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 8px 6px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.leaflet-container{
+  position: relative !important;
+  z-index: 2;
+}
+
+.viewDetails>div:first-child, .viewDetails div:nth-child(3), .viewDetails div:nth-child(4){
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.viewDetails>div:first-child{
+  background-color: #fff;
+  position: sticky;
+  top: 70px;
+  z-index: 3;
+}
+
+.viewDetails div:first-child div{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.viewDetails div:first-child div p{
+  font-size: 22px;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  transition: all 0.5s;
+}
+
+.viewDetails div:first-child div .handleIcon{
+  width:60px;
+  display: flex;
+  flex-direction: unset;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.5s;
+}
+
+.viewDetails>div:last-child{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.viewDetails span{
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.viewDetails p{
+  font-size: 18px;
+}
+
+.icons{
+  width: 80px;
+  display: flex;
+}
+
+.iconBorder{
+  padding: 2px;
+  border-radius: 50%;
+  font-size: 25px;
+  box-shadow: 0 0 2px 1px black;
+  transition: all 0.5s;
+}
+
+.iconBorder:active{
+  transform: scale(0.9px);
+}
+
+.sportsList{
+  margin-top: 70px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px
+}
+
+.sportsAvailability{
+  text-decoration: none;
+  color: black;
+  width: 100%;
+  min-height: 52px;
+  padding: 0px 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 4px 2px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.sportCard{
+  width: 100%;
+  padding: 8px 2px;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+}
+
+.sportCard h3, .sportCard p{
+  flex-grow: 0.8;
+}
+
+.sportCard p{
+  font-size: 18px;
+}
+
+.home{
+  margin-top: 70px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.imageContainer{
+  width: 100%;
+  height: 100vh;
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 20px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.imageContainer h2{
+  color: var(--tcolor);
+}
+
+.imageContainer h2 span{
+  color: black;
+  text-shadow: 1.3px 1.3px silver;
+}
+
+.imageContainer:hover img{
+  transform: scale(1.1);
+}
