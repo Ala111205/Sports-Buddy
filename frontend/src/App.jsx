@@ -7,7 +7,6 @@ import Register from './pages/Register';
 import Login from './pages/login';
 import CreateEvent from './pages/createEvent';
 import Events from './pages/Events';
-import EventsDetails from './pages/Events';
 import SportsAvailability from './pages/sports';
 import Home from './pages/home';
 
@@ -26,7 +25,7 @@ function App() {
             <Route path='/Register' element={<Register />} />
             <Route path='/Create' element={<CreateEvent />} />
             <Route path='/events' element={<Events />} />
-            <Route path='/events/:sportId' element={<EventsDetails />} />
+            <Route path='/events/:sportId' element={<Events />} />
             <Route path='/Sports' element={<SportsAvailability />} />
             <Route path='/' element={<Home />} />
           </Routes>
