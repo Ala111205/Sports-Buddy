@@ -23,6 +23,7 @@ export function AuthProvider({children}){
                 const fetchMongoUser = async ()=>{
                     try {
                     const token = await u.getIdToken();
+                    console.log("Auth token:", token)
                     const res = await axios.get(`${API_URL}/api/auth/me`, {
                         headers: {Authorization: `Bearer ${token}`}
                     });

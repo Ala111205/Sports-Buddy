@@ -9,6 +9,8 @@ try {
     throw new Error('FIREBASE_SERVICE_ACCOUNT env variable is missing');
   }
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  console.log("FIREBASE_SERVICE_ACCOUNT: ", serviceAccount);
+  console.log("Firebase Admin project_id:", serviceAccount.project_id);
 } catch (err) {
   console.error('❌ Failed to load Firebase service account:', err);
   process.exit(1);
