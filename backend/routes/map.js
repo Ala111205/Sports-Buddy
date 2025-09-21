@@ -5,6 +5,11 @@ const router = express.Router();
 
 router.get('/search-location', async (req, res) => {
   const q = req.query.q;
+
+  if (!q || q.trim() === '') {
+    return res.status(400).json({ error: 'Missing or empty query parameter' });
+  }
+
   try {
     const r = await fetch(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`,
@@ -14,6 +19,12 @@ router.get('/search-location', async (req, res) => {
         },
       }
     );
+
+    if (!r.ok) {
+      console.error('OSM API error:', r.status, r.statusText);
+      return res.status(502).json({ error: 'Failed to fetch from OpenStreetMap' });
+    }
+
     const data = await r.json();
     res.json(data);
   } catch (err) {
