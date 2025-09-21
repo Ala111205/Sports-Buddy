@@ -31,6 +31,7 @@ export default async function verify(req, res, next) {
 
   try {
     const decoded = await admin.auth().verifyIdToken(token);
+    console.log("verifyFirebase Recived token: ", decoded)
     req.user = { uid: decoded.uid, email: decoded.email };
     const mongoUser = await User.findOne({ firebaseUid: decoded.uid });
     req.user.role = mongoUser?.role || 'user';
