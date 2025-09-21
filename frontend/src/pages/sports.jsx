@@ -25,7 +25,7 @@ export default function SportsAvailability() {
   useEffect(() => {
     const today = new Date();
 
-    const availabilityList = events.map((ev) => {
+    const availabilityList = Array.isArray(events)&&events.map((ev) => {
       if (!ev.sport) return null;
       return {
         id: ev._id, // unique event ID
@@ -41,7 +41,7 @@ export default function SportsAvailability() {
   return (
     <div className="sportsList">
       <h1>Sports & Availability</h1>
-      {sportsAvailability.map((item) => (
+      {Array.isArray()&&sportsAvailability.map((item) => (
         <Link className="sportsAvailability" to={`/events/${item.sport._id}`} key={item.id}>
           <div className="sportCard">
             <h3>{item.sport.name}</h3>
