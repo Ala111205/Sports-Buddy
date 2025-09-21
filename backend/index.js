@@ -20,9 +20,27 @@ import mapRoute from './routes/map.js';
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://sports-buddy-psi.vercel.app' 
+];
+
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true); // origin is allowed
+    } else {
+      callback(new Error(`CORS policy: origin ${origin} not allowed`));
+    }
+  },
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+}));
 app.use(helmet());
 
 // Logging
