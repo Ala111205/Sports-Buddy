@@ -43,5 +43,5 @@ app.use('/api/auth', authRoute);
 app.use('/api/map', mapRoute); // ✅ fixed missing slash
 
 // Start server
-const PORT = process.env.PORT || 4500;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
