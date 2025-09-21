@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDPx1m7WHEZAodyrUYPEI7cLdwQiWZ8GfA",
   authDomain: "sports-buddy-14d5f.firebaseapp.com",
   projectId: "sports-buddy-14d5f",
-  storageBucket: "sports-buddy-14d5f.firebasestorage.app",
+  storageBucket: "sports-buddy-14d5f.appspot.com",
   messagingSenderId: "370920685559",
   appId: "1:370920685559:web:665ca54633dbcfc476f8f2",
   measurementId: "G-8FEBD5Z8M1"
