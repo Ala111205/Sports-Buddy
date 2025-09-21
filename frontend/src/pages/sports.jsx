@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -6,10 +7,12 @@ export default function SportsAvailability() {
   const [events, setEvents] = useState([]);
   const [sportsAvailability, setSportsAvailability] = useState([]);
 
+  const {API_URL} = useContext(AuthContext);
+
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await axios.get("http://localhost:4800/api/events"); // populated with sport
+        const res = await axios.get(`${API_URL}/api/events`); // populated with sport
         setEvents(res.data);
       } catch (err) {
         console.error(err.response?.data?.error || err.message);

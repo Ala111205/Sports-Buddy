@@ -29,7 +29,7 @@ export default function Events(){
     const locations = useLocation();
 
     console.log("Sport Id from URL: ", sportId);
-    const {user, mongoUser} = useContext(AuthContext);
+    const {user, mongoUser, API_URL} = useContext(AuthContext);
 
     const [editing, setEditing] = useState(false);
     const [events, setEvents] = useState([]);
@@ -59,7 +59,7 @@ export default function Events(){
         // fetch events (unchanged)
         async function fetchData() {
             try {
-            const res = await axios.get("http://localhost:4800/api/events");
+            const res = await axios.get(`${API_URL}/api/events`);
             const filtered = sportId
                 ? res.data.filter(ev => ev.sport?._id === sportId)
                 : res.data;
@@ -109,7 +109,7 @@ export default function Events(){
 
             // 1️⃣ Update Sport document
             const updatedSportRes = await axios.put(
-                `http://localhost:4800/api/sports/${currentSportId}`,
+                `${API_URL}/api/sports/${currentSportId}`,
                 {
                     name: sportEvent.sportName,
                     rules: sportEvent.rules,
@@ -121,7 +121,7 @@ export default function Events(){
 
             // 2️⃣ Update Event document
             const updatedEventRes = await axios.put(
-                `http://localhost:4800/api/events/${currentEventId}`,
+                `${API_URL}/api/events/${currentEventId}`,
                 {
                     title: sportEvent.title,
                     startDate: sportEvent.startDate ? new Date(sportEvent.startDate) : null,
@@ -173,7 +173,7 @@ export default function Events(){
 
             const token = await user.getIdToken();
 
-            await axios.delete(`http://localhost:4800/api/events/${eventId}`, {headers: {Authorization: `Bearer ${token}`}});
+            await axios.delete(`${API_URL}/api/events/${eventId}`, {headers: {Authorization: `Bearer ${token}`}});
 
             
             // ✅ Update local state

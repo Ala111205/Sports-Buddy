@@ -12,7 +12,7 @@ import SportsAvailability from './pages/sports';
 import Home from './pages/home';
 
 function App() {
-  const {user, loading} = useContext(AuthContext);
+  const {loading} = useContext(AuthContext);
 
   if(loading) return <p className='loader'><span></span> <span></span> <span></span></p>
 

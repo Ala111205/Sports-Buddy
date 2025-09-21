@@ -10,6 +10,10 @@ export function AuthProvider({children}){
     const [mongoUser, setMongoUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const API_URL = import.meta.env.VITE_API_URL;
+    
+    console.log("VITE_API_URL: ", API_URL);
+
     useEffect(()=>{
         const unsub = onAuthStateChanged(auth, (u)=>{
             setUser(u);
@@ -19,7 +23,7 @@ export function AuthProvider({children}){
                 const fetchMongoUser = async ()=>{
                     try {
                     const token = await u.getIdToken();
-                    const res = await axios.get("http://localhost:4800/api/auth/me", {
+                    const res = await axios.get(`${API_URL}/api/auth/me`, {
                         headers: {Authorization: `Bearer ${token}`}
                     });
                     setMongoUser(res.data);
@@ -37,7 +41,7 @@ export function AuthProvider({children}){
         return ()=>unsub();
     },[]);
 
-    return <AuthContext.Provider value={{user, loading, mongoUser}}>
+    return <AuthContext.Provider value={{user, loading, mongoUser, API_URL}}>
         {children}
     </AuthContext.Provider>
 };

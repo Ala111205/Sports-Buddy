@@ -21,7 +21,7 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function CreateEvent(){
-    const {user, mongoUser} = useContext(AuthContext);
+    const {user, mongoUser, API_URL} = useContext(AuthContext);
 
     console.log("User: ", user);
     const [sportEvent, setSportEvent] = useState({
@@ -62,7 +62,7 @@ export default function CreateEvent(){
 
             console.log("Token: ", token);
 
-            const sports = await axios.post("http://localhost:4800/api/sports/create", {
+            const sports = await axios.post(`${API_URL}/api/sports/create`, {
                 name: sportEvent.sportName,
                 rules: sportEvent.rules,
                 players: sportEvent.players,
@@ -71,7 +71,7 @@ export default function CreateEvent(){
             console.log("Sports: ", sports);
             const newSportId = sports.data._id
 
-            await axios.post("http://localhost:4800/api/events/event-create", {
+            await axios.post(`${API_URL}/api/events/event-create`, {
             sport: newSportId,
             startDate: sportEvent.startDate,
             title: sportEvent.title,
@@ -117,7 +117,7 @@ export default function CreateEvent(){
         if (!searchQuery.trim()) return;
 
         try {
-            const response = await fetch(`http://localhost:4800/api/map/search-location?q=${encodeURIComponent(searchQuery)}`);
+            const response = await fetch(`${API_URL}/api/map/search-location?q=${encodeURIComponent(searchQuery)}`);
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 

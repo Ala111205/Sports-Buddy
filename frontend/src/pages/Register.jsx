@@ -1,6 +1,7 @@
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../firebase";
@@ -17,6 +18,8 @@ export default function Register(){
         password: true,
         rePassword: true
     });
+
+    const {API_URL} = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -45,7 +48,7 @@ export default function Register(){
 
             // ✅ 4. Send details to backend
             const res = await axios.post(
-                "http://localhost:4800/api/users/register",
+                `${API_URL}/api/users/register`,
                 {
                 uid: cred.user.uid,
                 email,
