@@ -29,7 +29,9 @@ router.get('/', async (req, res) => {
       .populate({ path: 'sport', options: { lean: true } })
       .sort({ startDate: 1 }); // sort by startDate instead of 'date'
     res.json(events);
+    console.log("Fetched events:", events.length);
   } catch (error) {
+    console.error("Error fetching events:", error);
     res.status(500).json({ error: error.message });
   }
 });
