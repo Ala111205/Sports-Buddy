@@ -46,7 +46,7 @@ export default function CreateEvent(){
     const [streetName, setStreetName] = useState("");
 
 
-    const hangleDetails = (e)=>{
+    const handleDetails = (e)=>{
         setSportEvent({...sportEvent, [e.target.name]: e.target.value})
     }
 
@@ -161,13 +161,13 @@ export default function CreateEvent(){
             <h1>Admin Only</h1>
             <form onSubmit={handleCreate}>
                 <div className="inputContainer">
-                        <input type="date" name="startDate" value={sportEvent.sportDate} onChange={hangleDetails} />
-                        <input type="text" placeholder="Title" name="title" value={sportEvent.title} onChange={hangleDetails} />
-                        <input type="text" placeholder="Sport Name" name="sportName" value={sportEvent.sportName} onChange={hangleDetails} />
-                        <input type="text" placeholder="Rules" name="rules" value={sportEvent.rules} onChange={hangleDetails} />
-                        <input type="text" placeholder="Players" name="players" value={sportEvent.players} onChange={hangleDetails} />
-                        <input type="text" placeholder="City" name="city" value={sportEvent.city} onChange={hangleDetails} />
-                        <input type="text" placeholder="Area" name="area" value={sportEvent.area} onChange={hangleDetails} />
+                        <input type="date" name="startDate" value={sportEvent.startDate} onChange={handleDetails} />
+                        <input type="text" placeholder="Title" name="title" value={sportEvent.title} onChange={handleDetails} />
+                        <input type="text" placeholder="Sport Name" name="sportName" value={sportEvent.sportName} onChange={handleDetails} />
+                        <input type="text" placeholder="Rules" name="rules" value={sportEvent.rules} onChange={handleDetails} />
+                        <input type="text" placeholder="Players" name="players" value={sportEvent.players} onChange={handleDetails} />
+                        <input type="text" placeholder="City" name="city" value={sportEvent.city} onChange={handleDetails} />
+                        <input type="text" placeholder="Area" name="area" value={sportEvent.area} onChange={handleDetails} />
                         <div className="mapper">
                             <div style={{width: "230px", display: "flex", gap: "8px", marginBottom: "8px", position: "relative" }}>
                                 <input
@@ -205,7 +205,7 @@ export default function CreateEvent(){
                                 Selected: {coordinates ? `${coordinates[0].toFixed(5)}, ${coordinates[1].toFixed(5)}` : "None"}
                             </p>
                         </div>
-                        <textarea className="detail" name="description" value={sportEvent.description} onChange={hangleDetails} placeholder="Describe..."></textarea>
+                        <textarea className="detail" name="description" value={sportEvent.description} onChange={handleDetails} placeholder="Describe..."></textarea>
                 </div>
                 <button style={Event ? {}: {backgroundColor: "transparent"}} type="submit">Create</button>
             </form>
