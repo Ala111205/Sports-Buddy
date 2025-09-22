@@ -41,7 +41,7 @@ export default function SportsAvailability() {
   return (
     <div className="sportsList">
       <h1>Sports & Availability</h1>
-      {Array.isArray()&&sportsAvailability.map((item) => (
+      {Array.isArray(sportsAvailability)&&sportsAvailability.map((item) => (
         <Link className="sportsAvailability" to={`/events/${item.sport._id}`} key={item.id}>
           <div className="sportCard">
             <h3>{item.sport.name}</h3>
