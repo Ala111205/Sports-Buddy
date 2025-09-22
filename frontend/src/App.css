@@ -5,6 +5,7 @@
 }
 
 :root{
+  --loader-bg: black;
   --tcolor: burlywood;
   --pcolor: darkmagenta;
   --scolor: crimson;
@@ -18,6 +19,45 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.loader {
+  display: flex;
+  gap: 5px;
+}
+
+.loader span {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background-color: var(--loader-bg);
+  box-shadow: inset 0 -0px 0 0 var(--scolor);
+}
+
+.loader span:nth-child(1) {
+  animation: loaderPulse 0.5s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.loader span:nth-child(2) {
+  animation: loaderPulse 0.5s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.loader span:nth-child(3) {
+  animation: loaderPulse 0.5s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    box-shadow: inset 0 -0px 0 0 var(--scolor);
+    opacity: 0.3;
+  }
+  25%, 65% {
+    box-shadow: inset 0 -100px 0 0 var(--scolor); 
+    opacity: 0.8;
+  }
 }
 
 .navbar{

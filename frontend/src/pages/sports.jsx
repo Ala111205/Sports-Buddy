@@ -7,20 +7,23 @@ export default function SportsAvailability() {
   const [events, setEvents] = useState([]);
   const [sportsAvailability, setSportsAvailability] = useState([]);
 
-  const {API_URL} = useContext(AuthContext);
+  const {API_URL, eventsloading, setEventsLoading} = useContext(AuthContext);
 
   useEffect(() => {
     async function fetchEvents() {
+      setEventsLoading(true)
       try {
         const res = await axios.get(`${API_URL}/api/events`); // populated with sport
         setEvents(res.data);
       } catch (err) {
         console.error(err.response?.data?.error || err.message);
+      } finally{
+        setEventsLoading(false);
       }
     }
 
     fetchEvents();
-  }, []);
+  }, [API_URL]);
 
   useEffect(() => {
     const today = new Date();
@@ -39,22 +42,29 @@ export default function SportsAvailability() {
   }, [events]);
 
   return (
+    <>
     <div className="sportsList">
-      <h1>Sports & Availability</h1>
-      {Array.isArray(sportsAvailability)&&sportsAvailability.map((item) => (
-        <Link className="sportsAvailability" to={`/events/${item.sport._id}`} key={item.id}>
-          <div className="sportCard">
-            <h3>{item.sport.name}</h3>
-            <p><b>City:</b> {item.city}</p>
-            <p>
-              <b>Status:{" "}</b>
-              <span style={{ color: item.available ? "green" : "red" }}>
-                {item.available ? "Open" : "Closed"}
-              </span>
-            </p>
-          </div>
-        </Link>
-      ))}
+        <h1>Sports & Availability</h1>
+    {
+      eventsloading? <p className='loader'><span></span> <span></span> <span></span></p>:
+        <>
+        {Array.isArray(sportsAvailability)&&sportsAvailability.map((item) => (
+          <Link className="sportsAvailability" to={`/events/${item.sport._id}`} key={item.id}>
+            <div className="sportCard">
+              <h3>{item.sport.name}</h3>
+              <p><b>City:</b> {item.city}</p>
+              <p>
+                <b>Status:{" "}</b>
+                <span style={{ color: item.available ? "green" : "red" }}>
+                  {item.available ? "Open" : "Closed"}
+                </span>
+              </p>
+            </div>
+          </Link>
+        ))}
+        </>
+    }
     </div>
+    </>
   );
 }

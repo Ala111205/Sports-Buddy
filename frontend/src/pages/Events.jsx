@@ -29,7 +29,7 @@ export default function Events(){
     const locations = useLocation();
 
     console.log("Sport Id from URL: ", sportId);
-    const {user, mongoUser, API_URL} = useContext(AuthContext);
+    const {user, mongoUser, API_URL, eventsloading, setEventsLoading} = useContext(AuthContext);
 
     const [editing, setEditing] = useState(false);
     const [events, setEvents] = useState([]);
@@ -56,8 +56,8 @@ export default function Events(){
             console.log("sportEvent data:", sportEvent);
 
    useEffect(() => {
-        // fetch events (unchanged)
         async function fetchData() {
+            setEventsLoading(true);
             try {
             const res = await axios.get(`${API_URL}/api/events`);
             const filtered = sportId
@@ -66,6 +66,8 @@ export default function Events(){
             setEvents(filtered);
             } catch (err) {
             alert(err.response?.data?.error || err.message);
+            } finally{
+                setEventsLoading(false);
             }
         }
         fetchData();
@@ -200,84 +202,89 @@ export default function Events(){
         <>
         <div className="handleView">
             {!editing? <>
-            {Array.isArray(events) && events.map((ev)=>{
-                console.log(ev);
-                console.log("Location: ", ev.location);
-                console.log("Sport: ",ev.sport);
-                return(
-                    <div key={ev._id} className="viewDetails">
-                        <div>
-                            <p><span>Start Date:</span> {new Date(ev.startDate).toLocaleDateString()}</p>
+            {
+                eventsloading? <p className='loader'><span></span> <span></span> <span></span></p>:
+                <>
+                {Array.isArray(events) && events.map((ev)=>{
+                    console.log(ev);
+                    console.log("Location: ", ev.location);
+                    console.log("Sport: ",ev.sport);
+                    return(
+                        <div key={ev._id} className="viewDetails">
                             <div>
-                                <p onClick={()=>setShowIcons(showIcons === ev._id? null: ev._id)}><HiDotsVertical /></p>
-                                {showIcons === ev._id  && (
-                                    <div className="handleIcon">
-                                        <FaEdit className="iconBorder" onClick={()=>{if(mongoUser?.role !== "admin") return alert("Admin only"); setEditing(true); setCurrentEventId(ev._id);
-                                                            setCurrentSportId(ev.sport?._id || null); setSportEvent({title: ev.title,
-                                                                                                                    startDate: ev.startDate,
-                                                                                                                    sportName: ev.sport?.name || "",
-                                                                                                                    rules: ev.sport?.rules || "",
-                                                                                                                    players: ev.sport?.players || "",
-                                                                                                                    city: ev.city,
-                                                                                                                    area: ev.area,
-                                                                                                                    location: ev.location ? `${ev.location.coordinates[1]}, ${ev.location.coordinates[0]}` : [28.6139, 77.2090],
-                                                                                                                    description: ev.description}); 
+                                <p><span>Start Date:</span> {new Date(ev.startDate).toLocaleDateString()}</p>
+                                <div>
+                                    <p onClick={()=>setShowIcons(showIcons === ev._id? null: ev._id)}><HiDotsVertical /></p>
+                                    {showIcons === ev._id  && (
+                                        <div className="handleIcon">
+                                            <FaEdit className="iconBorder" onClick={()=>{if(mongoUser?.role !== "admin") return alert("Admin only"); setEditing(true); setCurrentEventId(ev._id);
+                                                                setCurrentSportId(ev.sport?._id || null); setSportEvent({title: ev.title,
+                                                                                                                        startDate: ev.startDate,
+                                                                                                                        sportName: ev.sport?.name || "",
+                                                                                                                        rules: ev.sport?.rules || "",
+                                                                                                                        players: ev.sport?.players || "",
+                                                                                                                        city: ev.city,
+                                                                                                                        area: ev.area,
+                                                                                                                        location: ev.location ? `${ev.location.coordinates[1]}, ${ev.location.coordinates[0]}` : [28.6139, 77.2090],
+                                                                                                                        description: ev.description}); 
 
-                                                                                                                    setCoordinates([
-                                                                                                                        ev.location?.coordinates[1], 
-                                                                                                                        ev.location?.coordinates[0], 
-                                                                                                                    ]);
+                                                                                                                        setCoordinates([
+                                                                                                                            ev.location?.coordinates[1], 
+                                                                                                                            ev.location?.coordinates[0], 
+                                                                                                                        ]);
 
-                                                                                                                    setLocation(
-                                                                                                                    ev.location? `${ev.location.coordinates[1]}, ${ev.location.coordinates[0]}` : "");}} />
-                                        <AiTwotoneDelete className="iconBorder" onClick={()=>{if(mongoUser?.role !== "admin") return alert("Admin only"); handleDelete(ev.sport?._id, ev._id)}} />
-                                    </div>
+                                                                                                                        setLocation(
+                                                                                                                        ev.location? `${ev.location.coordinates[1]}, ${ev.location.coordinates[0]}` : "");}} />
+                                            <AiTwotoneDelete className="iconBorder" onClick={()=>{if(mongoUser?.role !== "admin") return alert("Admin only"); handleDelete(ev.sport?._id, ev._id)}} />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <h2>{ev.title}</h2>
+                            <div>
+                                <p><span>SportName:</span> {ev.sport?.name || undefined}</p>
+                                <p><span>Rules:</span> {ev.sport?.rules || undefined}</p>
+                                <p><span>Players:</span> {ev.sport?.players || undefined}</p>
+                            </div>
+                            <div>
+                                <p><span>City:</span> {ev.city}</p>
+                                <p><span>Area:</span> {ev.area}</p>
+                            </div>
+                                {ev.location?.coordinates &&
+                                ev.location.coordinates[0] != null &&
+                                ev.location.coordinates[1] != null &&(
+                                <div style={{ height: "330px", width: "100%", maxWidth: "700px", marginTop: "8px", border: "2px solid black", position: "relative" }}>
+                                    <MapContainer
+                                        center={[ev.location.coordinates[1], ev.location.coordinates[0]]}
+                                        zoom={13}
+                                        minZoom={2}
+                                        maxZoom={18}
+                                        scrollWheelZoom={false}
+                                        style={{ height: "100%", width: "100%" }}
+                                        >
+                                        <TileLayer
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            attribution="&copy; OpenStreetMap contributors"
+                                        />
+                                        <Marker position={[ev.location.coordinates[1], ev.location.coordinates[0]]}>
+                                            <Popup>
+                                            <strong>City:</strong> {ev.city} <br />
+                                            <strong>Area:</strong> {ev.area} <br />
+                                            {ev.sport?.name && <><strong>Sport:</strong> {ev.sport.name}</>}
+                                            </Popup>
+                                        </Marker>
+                                    </MapContainer>
+                                </div>
                                 )}
+                            <div>
+                                <h2>Descrption:-</h2>
+                                <p>{ev.description}</p>
                             </div>
-                        </div>
-                        <h2>{ev.title}</h2>
-                        <div>
-                            <p><span>SportName:</span> {ev.sport?.name || undefined}</p>
-                            <p><span>Rules:</span> {ev.sport?.rules || undefined}</p>
-                            <p><span>Players:</span> {ev.sport?.players || undefined}</p>
-                        </div>
-                        <div>
-                            <p><span>City:</span> {ev.city}</p>
-                            <p><span>Area:</span> {ev.area}</p>
-                        </div>
-                            {ev.location?.coordinates &&
-                            ev.location.coordinates[0] != null &&
-                            ev.location.coordinates[1] != null &&(
-                            <div style={{ height: "330px", width: "100%", maxWidth: "700px", marginTop: "8px", border: "2px solid black", position: "relative" }}>
-                                <MapContainer
-                                    center={[ev.location.coordinates[1], ev.location.coordinates[0]]}
-                                    zoom={13}
-                                    minZoom={2}
-                                    maxZoom={18}
-                                    scrollWheelZoom={false}
-                                    style={{ height: "100%", width: "100%" }}
-                                    >
-                                    <TileLayer
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        attribution="&copy; OpenStreetMap contributors"
-                                    />
-                                    <Marker position={[ev.location.coordinates[1], ev.location.coordinates[0]]}>
-                                        <Popup>
-                                        <strong>City:</strong> {ev.city} <br />
-                                        <strong>Area:</strong> {ev.area} <br />
-                                        {ev.sport?.name && <><strong>Sport:</strong> {ev.sport.name}</>}
-                                        </Popup>
-                                    </Marker>
-                                </MapContainer>
                             </div>
-                            )}
-                        <div>
-                            <h2>Descrption:-</h2>
-                            <p>{ev.description}</p>
-                        </div>
-                        </div>
-                )
-            })}
+                    )
+                })}
+                </>
+            }
             </>: <>
             <div className="upgradeForm">
                 <h1>Upgrade Form</h1>

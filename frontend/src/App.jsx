@@ -13,11 +13,10 @@ import Home from './pages/home';
 function App() {
   const {loading} = useContext(AuthContext);
 
-  if(loading) return <p className='loader'><span></span> <span></span> <span></span></p>
-
   return (
     <>
       <div className="container">
+        {loading? <p className='loader'><span></span> <span></span> <span></span></p>:
         <Router>
           <Navbar />
           <Routes>
@@ -29,7 +28,7 @@ function App() {
             <Route path='/Sports' element={<SportsAvailability />} />
             <Route path='/' element={<Home />} />
           </Routes>
-        </Router>
+        </Router>}
 
       </div>
     </>

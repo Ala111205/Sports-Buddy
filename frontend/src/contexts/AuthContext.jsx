@@ -9,6 +9,7 @@ export function AuthProvider({children}){
     const [user, setUser] = useState(null);
     const [mongoUser, setMongoUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [eventsloading, setEventsLoading] = useState(true);
 
     const API_URL = import.meta.env.VITE_API_URL;
     
@@ -42,7 +43,7 @@ export function AuthProvider({children}){
         return ()=>unsub();
     },[]);
 
-    return <AuthContext.Provider value={{user, loading, mongoUser, API_URL}}>
+    return <AuthContext.Provider value={{user, loading, mongoUser, API_URL, eventsloading, setEventsLoading}}>
         {children}
     </AuthContext.Provider>
 };
