@@ -31,18 +31,18 @@
   
     .Frontend: React.js, React Router, Context API, Axios.
   
-  Backend: Express.js with Node.js, MongoDB Atlas, Mongoose.
+    .Backend: Express.js with Node.js, MongoDB Atlas, Mongoose.
   
-  Authentication: Firebase Auth for secure login and admin verification.
+    .Authentication: Firebase Auth for secure login and admin verification.
   
-  User Experience
+  ->User Experience
   
-  Responsive and intuitive UI built with React.
+    .Responsive and intuitive UI built with React.
+      
+    .Clean navigation bar with links to sports, events, and admin options.
+      
+    .Easily searchable and filterable events via the React Map.
   
-  Clean navigation bar with links to sports, events, and admin options.
+  ->Deployment Links
   
-  Easily searchable and filterable events via the React Map.
-  
-  Deployment Links
-  
-  Frontend: Sports Buddy App
+    .Frontend: Sports Buddy App
