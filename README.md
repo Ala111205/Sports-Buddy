@@ -43,6 +43,4 @@
       
     .Easily searchable and filterable events via the React Map.
   
-  ->Deployment Links
-  
-    .Frontend: https://sports-buddy-psi.vercel.app/
+    .Frontend Link: https://sports-buddy-psi.vercel.app/
