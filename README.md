@@ -45,4 +45,4 @@
   
   ->Deployment Links
   
-    .Frontend: Sports Buddy App
+    .Frontend: https://sports-buddy-psi.vercel.app/
