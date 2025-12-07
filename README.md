@@ -3,7 +3,7 @@
 
 ✨ **Key Features:-**
 
-    **Event Management**
+**Event Management**
 
     .Admins can create, update, and delete sports events using a protected form.
   
