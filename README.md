@@ -1,6 +1,8 @@
 # Sports-Buddy
     Sports Buddy is a full-stack web application built with React.js (frontend), Express.js (backend), MongoDB Atlas (database), and Firebase Authentication. It enables users to explore sports events, see where and when they are happening, and view event availability (open or closed) directly from the sports page. Logged-in admins can create, update, and delete events through a secure form, while regular users can only view events. A built-in React-Map integration allows admins to pinpoint event locations on a map with a searchable interface. The entire system is designed for smooth user experience and easy event management.
 
+**Repository:-** https://sports-buddy-psi.vercel.app/
+
 ✨**Key Features:-**
 
    **Event Management**
@@ -42,5 +44,4 @@
     .Clean navigation bar with links to sports, events, and admin options.
       
     .Easily searchable and filterable events via the React Map.
-  
-**Repository:-** https://sports-buddy-psi.vercel.app/
+
