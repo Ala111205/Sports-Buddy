@@ -165,7 +165,7 @@ export default function CreateEvent(){
                         <input type="text" placeholder="Title" name="title" value={sportEvent.title} onChange={handleDetails} />
                         <input type="text" placeholder="Sport Name" name="sportName" value={sportEvent.sportName} onChange={handleDetails} />
                         <input type="text" placeholder="Rules" name="rules" value={sportEvent.rules} onChange={handleDetails} />
-                        <input type="text" placeholder="Players" name="players" value={sportEvent.players} onChange={handleDetails} />
+                        <input type="number" placeholder="Players" name="players" value={sportEvent.players} onChange={handleDetails} required />
                         <input type="text" placeholder="City" name="city" value={sportEvent.city} onChange={handleDetails} />
                         <input type="text" placeholder="Area" name="area" value={sportEvent.area} onChange={handleDetails} />
                         <div className="mapper">
